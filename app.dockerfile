@@ -18,8 +18,11 @@ RUN apt-get -o Acquire::Check-Valid-Until=false update && apt-get install -y \
     vim \
     unzip \
     git \
-    curl
+    curl \
+    libxml2-dev \
+    docker-php-ext-install dom xml
 
+RUN docker-php-ext-install pdo pdo_mysql mbstring bcmath
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -38,6 +41,9 @@ USER root
 
 RUN chmod -R 777 storage/
 #RUN chmod -R 777 bootstrap/cache
+
+# composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 COPY ./supervisord /etc/supervisor/conf.d
 

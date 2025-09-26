@@ -20,7 +20,7 @@ RUN apt-get -o Acquire::Check-Valid-Until=false update && apt-get install -y \
     git \
     curl \
     libxml2-dev \
-    docker-php-ext-install dom xml
+    && docker-php-ext-install dom xml
 
 RUN docker-php-ext-install pdo pdo_mysql mbstring bcmath
 
